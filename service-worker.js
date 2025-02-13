@@ -1,29 +1,18 @@
-
-// public/service-worker.js
-
-self.addEventListener('install', (event) => {
-  console.log('Service Worker installing.');
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open('pwa-cache').then((cache) => {
+    caches.open("finans-cache").then((cache) => {
       return cache.addAll([
-        '/',
-        '/index.html',
-        '/manifest.json',
-        '/icon-192x192.png',
-        '/icon-512x512.png'
+        "/index.html",
+        "/manifest.json"
       ]);
     })
   );
 });
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
     })
   );
-});
-
-self.addEventListener('activate', (event) => {
-  console.log('Service Worker activating.');  
 });
